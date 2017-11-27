@@ -22,5 +22,5 @@ df$DateTime <- strptime(paste(df$Date, df$Time), "%d/%m/%Y %H:%M:%S")
 
 png (filename="plot2.png", width=480, height=480, units="px")
 plot(x=df$DateTime, y=df$GlobalActivePower, type="l", 
-     xlab="", ylab="Global Active Power (kilowatts", main="")
+     xlab="", ylab="Global Active Power (kilowatts)", main="")
 dev.off()

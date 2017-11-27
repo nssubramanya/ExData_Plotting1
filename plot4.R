@@ -1,4 +1,4 @@
-# Plot3.R: Read data and Plot Time-series graphs of Sub-metering Data
+# Plot4.R: Read data and Plot 4 Graphs side-by-side
 
 library(data.table)
 
@@ -23,10 +23,29 @@ df$DateTime <- strptime(paste(df$Date, df$Time), "%d/%m/%Y %H:%M:%S")
 # Plot the graph to a PNG
 png (filename="plot4.png", width=480, height=480, units="px")
 
+# Plot row-wise in a 2x2 matrix
+par (mfrow=c(2,2))
+
+# Global Active Power - Time Series
+plot(x=df$DateTime, y=df$GlobalActivePower, type="l", 
+     xlab="", ylab="Global Active Power", main="")
+
+# Voltage Time Series
+plot(x=df$DateTime, y=df$Voltage, type="l", 
+     xlab="datetime", ylab="Voltage", main="")
+
+# Sub Energy Metering - Time Series
 plot(x=df$DateTime, y=df$Kitchen, col="black", type="l", xlab="", ylab="Energy Sub Metering")
 lines(x=df$DateTime, y=df$Laundry, col="red", type="l")
 lines(x=df$DateTime, y=df$Heater_AC, col="blue", type="l")
-legend("topright", c("Sub_metering_1: Kitchen", "Sub_metering_2: Laundry", "Sub_metering_3: Heater_AC"), 
-       lty=1, lwd=2.5, col=c("black", "red", "blue"))
+
+# In Legend, don't show the border and text should be smaller size than in plot3
+legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lwd="2", bty="n",
+        cex=0.8, col=c("black", "red", "blue"))
+
+
+# Global Reactive Power - Time Series
+plot(x=df$DateTime, y=df$GlobalReactivePower, type="l", 
+     xlab="datetime", ylab="Global Reactive Power", main="")
 
 dev.off()
